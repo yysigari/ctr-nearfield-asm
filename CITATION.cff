@@ -1,0 +1,68 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below, and also cite ASTRA, SRW and the band-limited angular spectrum method (see references)."
+title: "Near-field coherent transition radiation from a compressed electron bunch: ASTRA + angular-spectrum simulation framework"
+authors:
+  - family-names: "FAMILY-NAME"        # TODO
+    given-names: "GIVEN-NAMES"         # TODO
+    affiliation: "TRIUMF"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"   # TODO if you have one
+repository-code: "https://github.com/yysigari/ctr-nearfield-asm"
+license-url: "https://github.com/yysigari/ctr-nearfield-asm/blob/main/LICENSE"   # custom, adapted from the RENEW Open Source License
+version: "0.1.0"
+date-released: "2026-10-23"                                 # TODO set at release
+keywords: [bunch compression, coherent transition radiation, angular spectrum method, terahertz, near field, beam diagnostics, ASTRA]
+references:
+  - type: software
+    title: "ASTRA - A Space Charge Tracking Algorithm"
+    authors: [{family-names: "Flöttmann", given-names: "Klaus"}]
+    institution: {name: "DESY"}
+    url: "https://www.desy.de/~mpyflo/"
+  - type: conference-paper
+    title: "Accurate and efficient computation of synchrotron radiation in the near field region"
+    authors: [{family-names: "Chubar", given-names: "Oleg"}, {family-names: "Elleaume", given-names: "Pascal"}]
+    conference: {name: "6th European Particle Accelerator Conference (EPAC'98)"}
+    year: 1998
+    start: 1177
+    end: 1179
+  - type: software
+    title: "SRW - Synchrotron Radiation Workshop"
+    authors: [{family-names: "Chubar", given-names: "Oleg"}]
+    url: "https://github.com/ochubar/SRW"
+  - type: article
+    title: "Band-limited angular spectrum method for numerical simulation of free-space propagation in far and near fields"
+    authors: [{family-names: "Matsushima", given-names: "Kyoji"}, {family-names: "Shimobaba", given-names: "Tomoyoshi"}]
+    journal: "Optics Express"
+    volume: 17
+    issue: 22
+    start: 19662
+    end: 19673
+    year: 2009
+    doi: "10.1364/OE.17.019662"
+  - type: article
+    title: "Array programming with NumPy"
+    authors: [{family-names: "Harris", given-names: "Charles R."}, {name: "et al."}]
+    journal: "Nature"
+    volume: 585
+    start: 357
+    end: 362
+    year: 2020
+    doi: "10.1038/s41586-020-2649-2"
+  - type: article
+    title: "SciPy 1.0: fundamental algorithms for scientific computing in Python"
+    authors: [{family-names: "Virtanen", given-names: "Pauli"}, {name: "et al."}]
+    journal: "Nature Methods"
+    volume: 17
+    start: 261
+    end: 272
+    year: 2020
+    doi: "10.1038/s41592-019-0686-2"
+  - type: article
+    title: "Matplotlib: A 2D graphics environment"
+    authors: [{family-names: "Hunter", given-names: "John D."}]
+    journal: "Computing in Science & Engineering"
+    volume: 9
+    issue: 3
+    start: 90
+    end: 95
+    year: 2007
+    doi: "10.1109/MCSE.2007.55"

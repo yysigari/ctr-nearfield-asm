@@ -1,0 +1,11 @@
+# regenerated simulation output
+astra_runs/
+results/
+*_z*m.png
+__pycache__/
+*.log
+.DS_Store
+# ASTRA is distributed by DESY; never commit the binary
+Astra
+astra
+generator
