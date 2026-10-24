@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it as below, and also cite ASTRA, SRW and the band-limited angular spectrum method (see references)."
 title: "Near-field coherent transition radiation from a compressed electron bunch: ASTRA + angular-spectrum simulation framework"
 authors:
-  - family-names: "FAMILY-NAME"        # TODO
-    given-names: "GIVEN-NAMES"         # TODO
+  - family-names: "Yousefi Sigari"
+    given-names: "Yasaman"
     affiliation: "TRIUMF"
     # orcid: "https://orcid.org/0000-0000-0000-0000"   # TODO if you have one
 repository-code: "https://github.com/yysigari/ctr-nearfield-asm"
