@@ -34,6 +34,8 @@ Neither code is needed to run `example_from_distribution.py`. ASTRA is only need
 | `example_from_distribution.py` | Quick start: a CTR screen image from one shipped distribution (no ASTRA needed) |
 | `validate_ctr.py` | ASM vs semi-analytic Fresnel–Hankel integral vs SRW drift propagator (`media/validation_ctr_asm.png`) |
 | `srw_source.py`, `validate_asm.py` | SRW edge and synchrotron radiation from the last dipole, with ASM cross-check (`media/validation_asm_vs_srw.png`) |
+| `calibration_bias.py` | Gaussian-calibration bias study: 36 Gaussian calibration bunches and 32 ASTRA bunches pass through the same forward model, giving image FWHM and rms radius on 5 screens |
+| `calibration_analysis.py` | Inverts the Gaussian calibration, compares with rms / FWHM / form-factor σ, joint multi-screen fit, sensitivity (`media/calibration/`) |
 | `distributions/` | ASTRA particle distributions, see below |
 
 ## Particle distribution files
@@ -54,12 +56,21 @@ pip install -r requirements.txt
 python example_from_distribution.py distributions/h028p281.0345.001.gz --z 0.5   # no ASTRA needed
 python validate_ctr.py                                                          # ASM validation
 python run_scan.py && python make_gif.py --prop                                  # full study (needs ASTRA; ~15 min, ~750 MB output)
+python calibration_bias.py && python calibration_analysis.py                     # calibration-bias study (after run_scan.py; ~12 min)
 ```
 
 ## Validation
 For a single electron behind the foil, the band-limited ASM agrees with a semi-analytic Fresnel–Hankel integral to within 0.1–3 % of peak, for 0.3–2.5 THz and z/γ²λ = 0.03–4.7. Two corrections are essential:
 1. The source kernel is built analytically in k-space (`Ẽ(q) ∝ q/(q² + (k/βγ)²)`). Sampling the 1/r core of K₁ in real space puts the peak about 15 % low at 2.5 THz.
 2. The Matsushima–Shimobaba band limit. Without it, transfer-function aliasing gives errors of up to ~40 % at long z and low frequency.
+
+## Gaussian-calibration bias (`media/calibration/`)
+A CTR-image monitor calibrated with Gaussian bunches was applied to the 32 non-Gaussian ASTRA bunches (0.1–3 THz band):
+* The inferred σ equals the σ of the best-fit Gaussian form factor to within 3 %. The image encodes |F(ν)| only.
+* It underestimates the rms duration by ≤ 8 % (4 % at full compression). For ωσ ≪ 1, |F|² ≈ 1 − ω²σ²_rms for any profile.
+* Converting it to a FWHM with the Gaussian factor 2.355 overestimates the true FWHM by up to ~2× near full compression (spike plus tail).
+* Images at 5 distances fit a single Gaussian to < 1 %, so multiple planes cannot reveal the profile shape.
+* Sensitivity collapses below ~50 fs (a 10 % σ_t measurement needs 1.5 % width precision at 50 fs and 0.27 % at 20 fs). A screen 0.1 m from the foil is 2–3.5× more sensitive than one at 0.5–1 m.
 
 ## Assumptions and limitations
 * No space charge or CSR in the chicane, which is idealised for the fully compressed bunch.
