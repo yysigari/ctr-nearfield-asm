@@ -1,6 +1,6 @@
-cff-version: 00.1
-DOI: 10.5281/zenodo.23610687
-message: "If you use this software, please cite it as below, and also cite ASTRA, SRW and the band-limited angular spectrum method (see references)."
+cff-version: 1.2.0
+doi: 10.5281/zenodo.23610687
+message: "If you use this software, please cite it as below, and also cite ASTRA, SRW, the band-limited angular spectrum method and, for collective/, Ocelot (see references)."
 title: "Near-field coherent transition radiation from a compressed electron bunch: ASTRA + angular-spectrum simulation framework"
 authors:
   - family-names: "Yousefi Sigari"
@@ -9,9 +9,9 @@ authors:
     # orcid: "https://orcid.org/0000-0000-0000-0000"   # TODO if you have one
 repository-code: "https://github.com/yysigari/ctr-nearfield-asm"
 license-url: "https://github.com/yysigari/ctr-nearfield-asm/blob/main/LICENSE"   # custom, adapted from the RENEW Open Source License
-version: "0.1.0"
-date-released: "2026-10-23"                                 # TODO set at release
-keywords: [bunch compression, coherent transition radiation, angular spectrum method, terahertz, near field, beam diagnostics, ASTRA]
+version: "0.2.0"
+date-released: "2026-10-25"                                 # TODO set at release
+keywords: [bunch compression, coherent transition radiation, angular spectrum method, terahertz, near field, beam diagnostics, ASTRA, space charge, coherent synchrotron radiation, Ocelot]
 references:
   - type: software
     title: "ASTRA - A Space Charge Tracking Algorithm"
@@ -39,6 +39,24 @@ references:
     end: 19673
     year: 2009
     doi: "10.1364/OE.17.019662"
+  - type: article
+    title: "OCELOT: A software framework for synchrotron light source and FEL studies"
+    authors: [{family-names: "Agapov", given-names: "Ilya"}, {family-names: "Geloni", given-names: "Gianluca"}, {family-names: "Tomin", given-names: "Sergey"}, {family-names: "Zagorodnov", given-names: "Igor"}]
+    journal: "Nuclear Instruments and Methods in Physics Research Section A"
+    volume: 768
+    start: 151
+    end: 156
+    year: 2014
+    doi: "10.1016/j.nima.2014.09.057"
+  - type: article
+    title: "On the coherent radiation of an electron bunch moving in an arc of a circle"
+    authors: [{family-names: "Saldin", given-names: "E. L."}, {family-names: "Schneidmiller", given-names: "E. A."}, {family-names: "Yurkov", given-names: "M. V."}]
+    journal: "Nuclear Instruments and Methods in Physics Research Section A"
+    volume: 398
+    start: 373
+    end: 394
+    year: 1997
+    doi: "10.1016/S0168-9002(97)00822-X"
   - type: article
     title: "Array programming with NumPy"
     authors: [{family-names: "Harris", given-names: "Charles R."}, {name: "et al."}]

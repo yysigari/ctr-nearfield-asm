@@ -19,6 +19,7 @@ This repository does **not** contain or redistribute third-party codes. Install 
 | code | used for | where to get it |
 |---|---|---|
 | **ASTRA** (K. Flöttmann, DESY) | chicane tracking (`beamline.py`, `run_scan.py`) | https://www.desy.de/~mpyflo/. Set the path in `beamline.py` (`ASTRA = ...`) |
+| **Ocelot** (I. Agapov et al.) | space-charge and CSR tracking in `collective/` only | `pip install ocelot-collab` (https://github.com/ocelot-collab/ocelot) |
 | **SRW** (O. Chubar et al.) | dipole edge-radiation source and cross-checks only (`srw_source.py`, `validate_*.py`) | https://github.com/ochubar/SRW, or `pip install srwpy` |
 
 Neither code is needed to run `example_from_distribution.py`. ASTRA is only needed to re-track the beam, and SRW only for the cross-checks.
@@ -36,6 +37,7 @@ Neither code is needed to run `example_from_distribution.py`. ASTRA is only need
 | `srw_source.py`, `validate_asm.py` | SRW edge and synchrotron radiation from the last dipole, with ASM cross-check (`media/validation_asm_vs_srw.png`) |
 | `calibration_bias.py` | Gaussian-calibration bias study: 36 Gaussian calibration bunches and 32 ASTRA bunches pass through the same forward model, giving image FWHM and rms radius on 5 screens |
 | `calibration_analysis.py` | Inverts the Gaussian calibration, compares with rms / FWHM / form-factor σ, joint multi-screen fit, sensitivity (`media/calibration/`) |
+| `collective/` | Same chirp scan tracked with Ocelot including space charge and CSR, with checks against ASTRA (see [collective/README.md](collective/README.md)) |
 | `distributions/` | ASTRA particle distributions, see below |
 
 ## Particle distribution files
@@ -57,6 +59,7 @@ python example_from_distribution.py distributions/h028p281.0345.001.gz --z 0.5  
 python validate_ctr.py                                                          # ASM validation
 python run_scan.py && python make_gif.py --prop                                  # full study (needs ASTRA; ~15 min, ~750 MB output)
 python calibration_bias.py && python calibration_analysis.py                     # calibration-bias study (after run_scan.py; ~12 min)
+python collective/track.py && python collective/analysis.py                      # space charge and CSR with Ocelot (~20 min)
 ```
 
 ## Validation
@@ -73,7 +76,7 @@ A CTR-image monitor calibrated with Gaussian bunches was applied to the 32 non-G
 * Sensitivity collapses below ~50 fs (a 10 % σ_t measurement needs 1.5 % width precision at 50 fs and 0.27 % at 20 fs). A screen 0.1 m from the foil is 2–3.5× more sensitive than one at 0.5–1 m.
 
 ## Assumptions and limitations
-* No space charge or CSR in the chicane, which is idealised for the fully compressed bunch.
+* The ASTRA chicane runs have no space charge or CSR. `collective/` repeats the scan with Ocelot including both: at 30 MeV and 20 pC they change the minimum rms bunch length by ≲ 10 % (21.8 fs → 23.6 fs with space charge, 19.7 fs with 1D CSR), but space charge grows the projected emittance by ~35 % at full compression.
 * The foil is an ideal conductor, treated at normal incidence. Each electron's field is translated to its (x_j, y_j). The electrons' angular spread is neglected.
 * The scalar ASM is applied to E_x and E_y separately, and E_z is neglected (angles ≲ 0.1 rad).
 * Macro-particle shot noise gives |F|² ≈ 1/N_macro. Spectrum points below 20/N_macro are masked.
@@ -86,6 +89,8 @@ Released under a license adapted from the [RENEW Open Source License](https://gi
 Please cite this repository (use the "Cite this repository" button, or `CITATION.cff`). Also cite the tools and methods it builds on:
 
 * **ASTRA**: K. Flöttmann, *ASTRA – A Space Charge Tracking Algorithm*, DESY, https://www.desy.de/~mpyflo/
+* **Ocelot** (`collective/`): I. Agapov, G. Geloni, S. Tomin, I. Zagorodnov, Nucl. Instrum. Methods A 768 (2014) 151, doi:10.1016/j.nima.2014.09.057
+* **CSR model** (`collective/`): E. L. Saldin, E. A. Schneidmiller, M. V. Yurkov, Nucl. Instrum. Methods A 398 (1997) 373, doi:10.1016/S0168-9002(97)00822-X
 * **SRW**: O. Chubar, P. Elleaume, "Accurate and efficient computation of synchrotron radiation in the near field region", Proc. EPAC'98, pp. 1177–1179; https://github.com/ochubar/SRW
 * **Band-limited ASM**: K. Matsushima, T. Shimobaba, Opt. Express 17 (2009) 19662, doi:10.1364/OE.17.019662
 * **Fourier optics**: J. W. Goodman, *Introduction to Fourier Optics*, 3rd ed. (2005)

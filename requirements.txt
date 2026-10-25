@@ -2,5 +2,6 @@ numpy>=2.0
 scipy>=1.13
 matplotlib>=3.9
 imageio>=2.34
+ocelot-collab>=26.6   # only needed for collective/ (space charge and CSR)
 srwpy>=4.2      # only needed for srw_source.py and the SRW cross-checks
 # ASTRA (DESY) must be installed separately: https://www.desy.de/~mpyflo/  (path set in beamline.py)
