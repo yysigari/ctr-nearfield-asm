@@ -37,7 +37,7 @@ Neither code is needed to run `example_from_distribution.py`. ASTRA is only need
 | `srw_source.py`, `validate_asm.py` | SRW edge and synchrotron radiation from the last dipole, with ASM cross-check (`media/validation_asm_vs_srw.png`) |
 | `calibration_bias.py` | Gaussian-calibration bias study: 36 Gaussian calibration bunches and 32 ASTRA bunches pass through the same forward model, giving image FWHM and rms radius on 5 screens |
 | `calibration_analysis.py` | Inverts the Gaussian calibration, compares with rms / FWHM / form-factor σ, joint multi-screen fit, sensitivity (`media/calibration/`) |
-| `collective/` | Same chirp scan tracked with Ocelot including space charge and CSR, with checks against ASTRA (see [collective/README.md](collective/README.md)) |
+| `collective/` | Same chirp scan tracked with Ocelot including space charge and CSR, with checks against ASTRA, and the near-field CTR for each case (`media/collective/`; see [collective/README.md](collective/README.md)) |
 | `distributions/` | ASTRA particle distributions, see below |
 
 ## Particle distribution files
@@ -60,6 +60,7 @@ python validate_ctr.py                                                          
 python run_scan.py && python make_gif.py --prop                                  # full study (needs ASTRA; ~15 min, ~750 MB output)
 python calibration_bias.py && python calibration_analysis.py                     # calibration-bias study (after run_scan.py; ~12 min)
 python collective/track.py && python collective/analysis.py                      # space charge and CSR with Ocelot (~20 min)
+python collective/ctr_gif.py                                                     # CTR with and without collective effects (~10 min)
 ```
 
 ## Validation

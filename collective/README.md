@@ -18,6 +18,7 @@ ones (same seed).
 | `track.py` | Ocelot lattice and tracking in the four modes → `collective/results/<tag>_<mode>.ast` (ASTRA format) |
 | `analysis.py` | Bunch length, FWHM, peak current, projected emittance (dispersion removed), energy loss, beam size → `collective/results/figs/` |
 | `checks.py` | Ocelot R56; bunch length versus ASTRA without collective effects; space-charge convergence |
+| `ctr_gif.py` | Near-field CTR for the four modes (same foil, source and ASM as `../make_gif.py`) → `media/collective/` |
 
 ## Running
 From the repository root:
@@ -26,6 +27,7 @@ pip install ocelot-collab
 python collective/track.py none,csr,sc,both    # 128 runs, ~15-20 min on 8 cores
 python collective/analysis.py                  # scan.pdf, profiles.pdf, numbers.txt
 python collective/checks.py                    # checks.txt (ASTRA comparison skipped if ASTRA is not installed)
+python collective/ctr_gif.py                   # CTR for all modes, media/collective/*.gif (~10 min)
 ```
 `python collective/track.py both 0.94,1.0,1.06` tracks selected h·R56 settings only. The output files have the same
 format as the ASTRA ones, so they can be passed to the CTR/ASM code in the main folder (e.g.
@@ -48,6 +50,16 @@ exchanged in ASTRA format through `astraBeam2particleArray` / `particleArray2ast
 At 30 MeV and 20 pC the effects on the bunch length are small (≲ 10 %). Space charge mainly grows the
 transverse beam (projected emittance +35 % at full compression) and moves the minimum to slightly stronger chirp.
 CSR costs ≈ 0.1 % of the beam energy and slightly sharpens the current spike.
+
+## Near-field CTR (`media/collective/`)
+![CTR with and without collective effects](../media/collective/ctr_collective_effects.gif)
+
+Each frame is one chirp setting: current profiles, CTR spectra and energy on the 0.5 m screen for the four modes,
+the 0.5 m screen images on a common colour scale, cuts through the 0.1, 0.5 and 2.0 m screens, and the difference
+image (CSR + space charge − none). The CTR energy keeps its 23-fold rise over the scan; its maximum drops by 5 %
+(139 → 133 nJ) and moves to h·R56 = 1.015 with space charge. The largest changes, −10 % at h·R56 ≈ 0.93 and +5 %
+at ≈ 1.1, follow from this shift. CSR alone changes the energy by < 1 %. The ring images keep their shape and radius
+(`ctr_numbers.txt`, `ctr_energy.pdf`).
 
 ## Checks
 * Ocelot gives |R56| = 35.38 mm; ASTRA gives 35.36 mm.
