@@ -20,6 +20,8 @@ ones (same seed).
 | `checks.py` | Ocelot R56; bunch length versus ASTRA without collective effects; space-charge convergence |
 | `ctr_gif.py` | Near-field CTR for the four modes (same foil, source and ASM as `../make_gif.py`) → `media/collective/` |
 | `bench_spectra.py` | ASTRA vs Ocelot CTR spectra and energy on the 0.5 m screen → `media/collective/bench_spectra.pdf` |
+| `csr3d_dump.py` | Ocelot bunches (10⁶ particles, no collective effects) at the middle of each dipole → `collective/results/csr3d/` |
+| `csr3d_check.py` | 3D vs 1D steady-state CSR wake on those bunches with PyCSR3D → `media/collective/csr3d_wakes.pdf` |
 
 ## Running
 From the repository root:
@@ -30,6 +32,9 @@ python collective/analysis.py                  # scan.pdf, profiles.pdf, numbers
 python collective/checks.py                    # checks.txt (ASTRA comparison skipped if ASTRA is not installed)
 python collective/ctr_gif.py                   # CTR for all modes, media/collective/*.gif (~10 min)
 python collective/bench_spectra.py             # ASTRA vs Ocelot spectra (after make_gif.py and ctr_gif.py)
+python collective/csr3d_dump.py                # bunches at mid-dipole, h·R56 = 0.94, 1.0, 1.06 (~5 min)
+python collective/csr3d_check.py validate     # PyCSR3D: thin-beam limit and finite-gamma test
+python collective/csr3d_check.py              # 3D vs 1D wakes (pip install git+https://github.com/ChristopherMayes/PyCSR3D)
 ```
 `python collective/track.py both 0.94,1.0,1.06` tracks selected h·R56 settings only. The output files have the same
 format as the ASTRA ones, so they can be passed to the CTR/ASM code in the main folder (e.g.
@@ -78,6 +83,23 @@ With space charge and CSR the energy changes by at most −10 % / +5 %, but the 
 at h·R56 = 0.94 the bunch lengthens from 63 to 71 fs and the 3 THz intensity halves; at 1.06 it rises by about 30 %;
 at full compression it falls by about 12 %. The 2–3 THz band is therefore the sensitive probe of collective effects
 (`bench_spectra_numbers.txt`).
+
+## 3D steady-state CSR (`media/collective/csr3d_wakes.pdf`)
+The 1D CSR model used above is checked against the 3D steady-state wake of Cai & Ding (PRAB 23, 014402, 2020),
+computed with [PyCSR3D](https://github.com/ChristopherMayes/PyCSR3D) on the tracked bunches at the middle of each
+dipole. 10⁶ particles are needed: with 10⁵ the 3D result changes by up to ±50 % with the grid. With 10⁶ the mean
+energy-loss rate changes by ≲ 3 % between grids, except in B2, where the wake is weakest (~5 keV/m).
+
+* Validation: for a thin Gaussian at γ = 500 the 3D wake reduces to the 1D one (mean energy loss within 0.4 %).
+* Full compression (`csr3d_numbers.txt`): at mid-B4 (σz = 22.6 µm, the strongest wake) the 3D mean
+  energy-loss rate is 1.06 × the 1D value (0.90 and 0.95 at h·R56 = 0.94 and 1.06). The spread of dE/ds along the
+  bunch is 25–46 % larger, and the wake minimum sits about 0.4 σz further towards the tail.
+* The difference is not a transverse-size effect: the Derbenev parameter is only 0.2 in B4. At 30 MeV the 1D
+  ultra-relativistic assumption σz ≫ ρ/γ³ = 7.7 µm is only marginally met, and the 3D kernel also contains the
+  velocity (space-charge) field. Even a thin Gaussian (σx = 30 µm) at γ = 60 gives a 3D wake that differs from 1D
+  in shape and amplitude (`validate`).
+* Caveats: steady state only (the B4 midpoint is about one overtaking length into the magnet); the 3D kernel's
+  space-charge part overlaps with Ocelot's separate space-charge solver; no shielding.
 
 ## Limitations
 * CSR is 1D (projected). At full compression the Derbenev parameter (σ_x/σ_z)·√(σ_x/ρ) is about 1, so the 1D
