@@ -19,6 +19,7 @@ ones (same seed).
 | `analysis.py` | Bunch length, FWHM, peak current, projected emittance (dispersion removed), energy loss, beam size → `collective/results/figs/` |
 | `checks.py` | Ocelot R56; bunch length versus ASTRA without collective effects; space-charge convergence |
 | `ctr_gif.py` | Near-field CTR for the four modes (same foil, source and ASM as `../make_gif.py`) → `media/collective/` |
+| `bench_spectra.py` | ASTRA vs Ocelot CTR spectra and energy on the 0.5 m screen → `media/collective/bench_spectra.pdf` |
 
 ## Running
 From the repository root:
@@ -28,6 +29,7 @@ python collective/track.py none,csr,sc,both    # 128 runs, ~15-20 min on 8 cores
 python collective/analysis.py                  # scan.pdf, profiles.pdf, numbers.txt
 python collective/checks.py                    # checks.txt (ASTRA comparison skipped if ASTRA is not installed)
 python collective/ctr_gif.py                   # CTR for all modes, media/collective/*.gif (~10 min)
+python collective/bench_spectra.py             # ASTRA vs Ocelot spectra (after make_gif.py and ctr_gif.py)
 ```
 `python collective/track.py both 0.94,1.0,1.06` tracks selected h·R56 settings only. The output files have the same
 format as the ASTRA ones, so they can be passed to the CTR/ASM code in the main folder (e.g.
@@ -67,6 +69,15 @@ at ≈ 1.1, follow from this shift. CSR alone changes the energy by < 1 %. The r
   (1000.4 / 1000.4 fs at h·R56 = 0, 21.8 / 21.8 fs at full compression, 402 / 403 fs at h·R56 = 1.4).
 * Space charge at full compression is converged: a 95³ mesh or a 2.5 mm kick step changes the bunch length by
   < 0.5 % and the emittance by < 1 %.
+
+## ASTRA vs Ocelot CTR spectra (`media/collective/bench_spectra.pdf`)
+Without collective effects the two codes agree all the way to the radiation: 21.78 / 21.76 fs at full compression,
+CTR energy within 0.3 % over the whole scan (peak 138.9 / 139.2 nJ, both at h·R56 = 1.000), and spectra within about
+1 % (3–4 % only in the highest unmasked frequencies at strong under- or over-compression, i.e. sampling noise).
+With space charge and CSR the energy changes by at most −10 % / +5 %, but the spectrum above 1 THz changes much more:
+at h·R56 = 0.94 the bunch lengthens from 63 to 71 fs and the 3 THz intensity halves; at 1.06 it rises by about 30 %;
+at full compression it falls by about 12 %. The 2–3 THz band is therefore the sensitive probe of collective effects
+(`bench_spectra_numbers.txt`).
 
 ## Limitations
 * CSR is 1D (projected). At full compression the Derbenev parameter (σ_x/σ_z)·√(σ_x/ρ) is about 1, so the 1D
